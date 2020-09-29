@@ -6,7 +6,8 @@ public class EmployeeWageComputation{
 		//variables
 		int hours_worked = 0;
 		int emp_wage = 0;
-		int emp_check = (int)Math.floor(Math.random()*10)%2;
+		int emp_check = (int)Math.floor(Math.random() * 10) % 2;
+		
 		if(emp_check == present){
 			hours_worked = 10;
 		}
@@ -17,5 +18,4 @@ public class EmployeeWageComputation{
 		System.out.println("Daily emp wage is : " + emp_wage);
 	
 	}
-
 }
