@@ -62,6 +62,16 @@ public class empWageMultipleCompanies implements calculateWageInterface{
 		return total_empWage;
 	}
 	
+	//Method to get total wage
+	public int getTotalWage(String companyName) {
+		int totWage = 0;
+		for(int i = 0; i < companyEmpWageList.size(); i++) {
+			if(companyEmpWageList.get(i).company.equalsIgnoreCase(companyName)) {
+				totWage = companyEmpWageList.get(i).total_empWage;
+			}
+		}
+		return totWage;
+	}
 	
 	public static void main(String[] args) {
 		System.out.println("Welcome To Employee Wage Calculator");
