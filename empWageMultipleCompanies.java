@@ -1,23 +1,23 @@
-import java.util.*;
-
 public class empWageMultipleCompanies implements calculateWageInterface{
+
 	public static final int is_part_time = 1;
 	public static final int is_full_time = 2;
 	
-	private List<companyEmpWage> companyEmpWageList;																		//creating list	
+	private List<companyEmpWage> companyEmpWageList;															//creating list	
 	
-	public empWageBuilder() {
-		companyEmpWageList = new ArrayList<companyEmpWage>();																//initiating list
+	public empWageMultipleCompanies() {
+		companyEmpWageList = new ArrayList<companyEmpWage>();															//initiating list
 	}
 	
 	public void addcompanyEmpWage(String company, int emp_wage_per_hr, int max_working_days, int max_hrs_in_month) {
-		//creating companyEmpWage obj and adding it to list
 
-		companyEmpWageList.add(new companyEmpWage(company, emp_wage_per_hr, max_working_days, max_hrs_in_month));					
+		companyEmpWageList.add(new companyEmpWage(company, emp_wage_per_hr, max_working_days, max_hrs_in_month));			
+		//creating companyEmpWage obj and adding it to list
 	}
 	
-	public void computeEmpWage() {																			//calling method to calculate wage and print
-
+	//calling method to calculate wage and print
+	public void computeEmpWage() {		
+															
 		for(int i = 0; i < companyEmpWageList.size(); i++) {
 			companyEmpWageList.get(i).setTotalEmpWage(calculateEmpWage(companyEmpWageList.get(i)));
 			System.out.println(companyEmpWageList.get(i));
@@ -26,12 +26,13 @@ public class empWageMultipleCompanies implements calculateWageInterface{
 
 	//Method to calculate employee wage
 	private int calculateEmpWage(companyEmpWage com) {
-		
+
 		//variables
 		int empHrs = 0;
 		int total_empHrs = 0;
 		int total_working_days = 0;
 		int total_empWage = 0;
+		List<Integer> dailyWages = new ArrayList<Integer>();
 		
 		//computation
 		while(total_empHrs <= com.max_hrs_in_month && total_working_days < com.max_working_days) {
@@ -48,12 +49,15 @@ public class empWageMultipleCompanies implements calculateWageInterface{
 				empHrs = 0;
 				break;
 			}
+
 			total_empHrs += empHrs;
 			System.out.println("Day : "+total_working_days+" Emp Hrs : "+empHrs );
+			dailyWages.add(empHrs * com.emp_wage_per_hr);
 		}
 		
 		//if total hrs exceeds max hrs per month then computing for max hrs per month
 
+		com.setDailyEmpWage(dailyWages);
 		total_empWage = total_empHrs * com.emp_wage_per_hr;
 		return total_empWage;
 	}
@@ -62,7 +66,7 @@ public class empWageMultipleCompanies implements calculateWageInterface{
 	public static void main(String[] args) {
 		System.out.println("Welcome To Employee Wage Calculator");
 		
-		calculateWageInterface ewb = new empWageBuilder();
+		calculateWageInterface ewb = new empWageMultipleCompanies();
 		ewb.addcompanyEmpWage("DMart", 20, 2, 10);
 		ewb.addcompanyEmpWage("Reliance", 10, 4, 20);
 		ewb.computeEmpWage();	
